@@ -22,7 +22,7 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
 		System.out.println("____________________________________________");
 		String requestURI = request.getRemoteAddr();
 		Integer port = request.getRemotePort();
-		String login = ServletRequestUtils.getStringParameter(request, "login");
+		String login = ServletRequestUtils.getStringParameter(request, "user");
 		System.out.println("Remote::" + requestURI + " Port " + port + " || Login ::" + login);
 		System.out.println("____________________________________________");
 		return true;

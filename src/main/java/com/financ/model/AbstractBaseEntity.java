@@ -6,11 +6,15 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.ColumnDefault;
+
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @MappedSuperclass
 public abstract class AbstractBaseEntity {
@@ -18,35 +22,40 @@ public abstract class AbstractBaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID", nullable = false)
+	@JsonAlias(value = "id")
 	public Long id;
 
 	@Column(name = "active", nullable = false)
 	@ColumnDefault(value = "true")
+	@JsonAlias(value = "active")
 	private boolean active;
 
-	/*
-	 * @OneToOne
-	 * 
-	 * @JoinColumn(name = "insert_user", referencedColumnName = "id", nullable =
-	 * true)
-	 */
-	private Long insertUser;
+	@Column(name = "insert_user")
+	@JsonAlias(value = "insertUser")
+	@JoinColumn(name = "insert_user", referencedColumnName = "id")
+	private User insertUser;
 
 	@Column(name = "insert_date")
 	@Temporal(TemporalType.DATE)
+	@JsonAlias(value = "insertUser")
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date insertDate;
 
-	/*
-	 * @OneToOne
-	 * 
-	 * @JoinColumn(name = "updates_user", referencedColumnName = "id", nullable =
-	 * true)
-	 */
-	private Long updateUser;
+	@Column(name = "update_user")
+	@JsonAlias(value = "updateUser")
+	@JoinColumn(name = "update_user", referencedColumnName = "id")
+	private User updateUser;
 
 	@Column(name = "update_date")
 	@Temporal(TemporalType.DATE)
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	@JsonAlias(value = "updateDate")
 	private Date updateDate;
+
+	@Column(name = "owner_user")
+	@JsonAlias(value = "ownerUser")
+	@JoinColumn(name = "owner_user", referencedColumnName = "id")
+	private User ownerUser;
 
 	public Long getId() {
 		return id;
@@ -64,11 +73,11 @@ public abstract class AbstractBaseEntity {
 		this.active = active;
 	}
 
-	public Long getInsertUser() {
+	public User getInsertUser() {
 		return insertUser;
 	}
 
-	public void setInsertUser(Long insertUser) {
+	public void setInsertUser(User insertUser) {
 		this.insertUser = insertUser;
 	}
 
@@ -80,11 +89,11 @@ public abstract class AbstractBaseEntity {
 		this.insertDate = insertDate;
 	}
 
-	public Long getUpdateUser() {
+	public User getUpdateUser() {
 		return updateUser;
 	}
 
-	public void setUpdateUser(Long updateUser) {
+	public void setUpdateUser(User updateUser) {
 		this.updateUser = updateUser;
 	}
 
@@ -94,6 +103,14 @@ public abstract class AbstractBaseEntity {
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
+	}
+
+	public User getOwnerUser() {
+		return ownerUser;
+	}
+
+	public void setOwnerUser(User ownerUser) {
+		this.ownerUser = ownerUser;
 	}
 
 }

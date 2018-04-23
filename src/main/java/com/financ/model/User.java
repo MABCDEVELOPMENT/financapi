@@ -1,5 +1,6 @@
 package com.financ.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -8,27 +9,42 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "user")
-public class User extends AbstractBaseEntity {
+public class User extends AbstractBaseEntity implements Serializable {
 
-	@Column(name = "user_name", length = 40, nullable = false, unique = true)
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Column(name = "user_name", length = 40, nullable = false, unique = false)
+	@JsonAlias(value = "userName")
 	private String userName;
 
 	@Column(name = "full_name", length = 60, nullable = false)
+	@JsonAlias(value = "fullName")
 	private String fullName;
 
 	@Column(name = "email", length = 255, nullable = false, unique = true)
+	@JsonAlias(value = "email")
 	private String email;
 
-	@Column(name = "cell_phone", length = 11, nullable = false, unique = true)
+	@Column(name = "cell_phone", length = 11, nullable = true)
+	@JsonAlias(value = "cellPhone")
 	private String cellPhone;
 
 	@Column(name = "date_brith", nullable = false)
 	@Temporal(TemporalType.DATE)
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	@JsonAlias(value = "dateBrith")
 	private Date dateBrith;
 
-	@Column(name = "password", length = 100, nullable = false, unique = true)
+	@Column(name = "password", length = 100, nullable = true)
+	@JsonAlias(value = "password")
 	private String password;
 
 	public Long getId() {
