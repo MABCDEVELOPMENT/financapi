@@ -8,7 +8,7 @@ import com.financ.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-	@Query("select u from User u where u.userName=:userName")
+	@Query("select u from User u where u.userName=:userName and u.active = true")
 	public User findLogin(@Param("userName") String userName);
 
 }

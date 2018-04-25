@@ -62,9 +62,11 @@ public class UserController {
 		ScheduledEmail email = new ScheduledEmail();
 
 		email.setEmail(user.getEmail());
+		email.setName(user.getFullName());
 		email.setInsertUser(user);
 		email.setInsertDate(user.getInsertDate());
-		email.setText("http://localhost:8088/activate/" + user.getId());
+		email.setSubject("Ativação de conta");
+		email.setBody("http://localhost:4200/activate/" + user.getId());
 
 		this.scheduledEmail.saveAndFlush(email);
 		return new ResponseEntity<String>("User saved successfully", HttpStatus.OK);

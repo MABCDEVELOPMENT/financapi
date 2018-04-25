@@ -19,9 +19,13 @@ public class ScheduledEmail extends AbstractBaseEntity {
 	@JsonAlias(value = "email")
 	private String email;
 
-	@Column(name = "text", nullable = false)
-	@JsonAlias(value = "text")
-	private String text;
+	@Column(name = "name", nullable = false)
+	@JsonAlias(value = "name")
+	private String name;
+
+	@Column(name = "body", nullable = false)
+	@JsonAlias(value = "body")
+	private String body;
 
 	@Column(name = "sent")
 	@JsonAlias(value = "sent")
@@ -39,12 +43,12 @@ public class ScheduledEmail extends AbstractBaseEntity {
 		this.email = email;
 	}
 
-	public String getText() {
-		return text;
+	public String getBody() {
+		return body;
 	}
 
-	public void setText(String text) {
-		this.text = text;
+	public void setBody(String body) {
+		this.body = body;
 	}
 
 	public boolean isSent() {
@@ -61,6 +65,14 @@ public class ScheduledEmail extends AbstractBaseEntity {
 
 	public void setSubject(String subject) {
 		this.subject = subject;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

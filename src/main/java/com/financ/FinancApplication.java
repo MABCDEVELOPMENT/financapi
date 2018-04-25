@@ -13,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
+import com.financ.interceptor.ScheduledTasks;
 
 @SpringBootApplication
 @EntityScan(basePackages = { "com.financ.model" })
@@ -22,6 +23,11 @@ public class FinancApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(FinancApplication.class, args);
+	}
+
+	@Bean
+	public ScheduledTasks scheduledTasks() {
+		return new ScheduledTasks();
 	}
 
 	@Bean
